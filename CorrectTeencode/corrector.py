@@ -50,6 +50,6 @@ def correct_sent(sent):
     return sent
 
 if __name__ == "__main__":
-    sent = 'Có hỗ trơk đổi k shop ơi met65 quas roi62'
+    sent = 'Có hỗ trơk đổi k shop ơi met65 quas roi62 :))'
     print(correct_sent(sent))
     # print(in_dictionary('facebook'))

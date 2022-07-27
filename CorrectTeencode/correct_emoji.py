@@ -54,7 +54,7 @@ def fix_hex(sentence):
 
     for word in t:
         for key in keyHex:
-            if similar(word, key) > 0.5:
+            if key in word:
                 output += dict_hex[word] + " "
                 flagHex = 1
                 break
@@ -72,7 +72,7 @@ def fix_symbol(sentence):
     keySymbol = list(dict_symbol.keys())
     for word in t:
         for key in keySymbol:
-            if similar(word, key) > 0.5:
+            if key in word:
                 output += dict_symbol[word] + " "
                 flagSymbol = 1
                 break

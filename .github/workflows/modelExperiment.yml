@@ -12,7 +12,7 @@ jobs:
         working-directory: /
     steps:
      -  run: echo Hello with CI/CD  
-     -  run: pwd
+     -  run: dir
      -
         name: Checkout
         uses: actions/checkout@v2

@@ -12,7 +12,6 @@ jobs:
         shell: bash
         working-directory: CorrectAccent/
     steps:
-     -  run: echo Hello with CI/CD  
      -
         name: Checkout
         uses: actions/checkout@v2

@@ -23,4 +23,5 @@ for sen in tqdm(test_data[:100]):
     if similar(returnRealOutput(sen, model),sen) >= 0.8:
         num_correct += 1
 
+#hello test CI/CD
 assert num_correct/100 >= 0.27

@@ -1,4 +1,4 @@
-name: modelExperimient
+ name: modelExperimient
 
 on:
   push:
@@ -6,6 +6,10 @@ on:
       - '/CorrectAccent/**'
 
 jobs:
+  say-hello:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo Hello with CI/CD  
   test:
     runs-on: ubuntu-latest
     defaults:

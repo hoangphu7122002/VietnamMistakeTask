@@ -2,8 +2,7 @@ name: modelExperimient
 
 on:
   push:
-    paths:
-      - '/CorrectAccent/**'
+      branches: [main]
 
 jobs:
   say-hello:

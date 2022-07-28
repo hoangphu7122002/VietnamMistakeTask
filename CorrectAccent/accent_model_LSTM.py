@@ -6,8 +6,8 @@ import tensorflow as tf
 
 ALPHABET = list(sorted(set(ALPHABET)))
 indexALPHABET = {e: index for index,e in enumerate(ALPHABET)}
-data_path = 'CorrectTeencode/'
-fi = open(data_path + 'data/tudien_don.json', 'r', encoding='utf-8')
+#data_path = 'CorrectAccent/'
+fi = open('data/tudien_don.json', 'r', encoding='utf-8')
 data_single = json.load(fi)
 singleWord = data_single.keys()
 

@@ -5,17 +5,14 @@ on:
       branches: [main]
 
 jobs:
-  say-hello:
-    runs-on: ubuntu-latest
-    steps:
-    - run: echo Hello with CI/CD  
   test:
     runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
-        working-directory: /CorrectAccent/
+        working-directory: /
     steps:
+     -  run: echo Hello with CI/CD  
      -
         name: Checkout
         uses: actions/checkout@v2
@@ -32,4 +29,5 @@ jobs:
      - 
         name: Test with pytest
         run: |
-          pytest   
+          cd CorrectAccent/
+          

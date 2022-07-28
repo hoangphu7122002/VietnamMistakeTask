@@ -1,7 +1,5 @@
 import re
 import string
-import time
-import tensorflow as tf
 
 ACCENTED_CHARS = {
     'a': u'a á à ả ã ạ â ấ ầ ẩ ẫ ậ ă ắ ằ ẳ ẵ ặ',
@@ -46,7 +44,7 @@ def gen_ngram(words, n=5, pad_words=True):
         for i in range(len(words) - n + 1):
             yield tuple(words[i: i + n])
 
-def createModel(MAXLEN):
+def createModel(MAXLEN,tf):
     model = tf.keras.Sequential([
         tf.keras.layers.LSTM(256, input_shape=(MAXLEN, len(ALPHABET))),
         tf.keras.layers.RepeatVector(MAXLEN),
@@ -63,5 +61,5 @@ def createModel(MAXLEN):
     return model
 
 if __name__ == '__main__':
-    print(len(ALPHABET))
-    print(len(BASE_ALPHABET))
+    pass
+    #print(len(BASE_ALPHABET))

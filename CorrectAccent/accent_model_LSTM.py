@@ -4,10 +4,20 @@ import numpy as np
 from helper_function import *
 import tensorflow as tf
 
+ALPHABET = list(sorted(set(ALPHABET)))
+indexALPHABET = {e: index for index,e in enumerate(ALPHABET)}
+
+def is_need_accent(digit):
+    if isinstance(digit,int):
+        return digit in [indexALPHABET[e] for e in ACCENTED_TO_BASE_CHAR_MAP.keys() if ACCENTED_TO_BASE_CHAR_MAP[e] == digit]
+    else:
+        return digit in [e for e in ACCENTED_TO_BASE_CHAR_MAP.keys() if ACCENTED_TO_BASE_CHAR_MAP[e] == digit]
+
+
 class CharacterCodec(object):
     def __init__(self, alphabet, maxlen):
         self.alphabet = list(sorted(set(alphabet)))
-        self.index_alphabet = dict((c, i) for i, c in enumerate(self.alphabet))
+        self.index_alphabet = dict((c, i) for c,i in indexALPHABET.items())
         self.maxlen = maxlen
 
     def encode(self, C, maxlen=None):
@@ -40,7 +50,7 @@ class Model(object):
         self.pad_words_input = self.config.get('PAD_WORDS_INPUT', True)
         self.input_codec = CharacterCodec(ALPHABET, self.maxlen)
         self.codec = CharacterCodec(ALPHABET, self.maxlen)
-        self.model = createModel(self.maxlen)
+        self.model = createModel(self.maxlen,tf)
         self.model.load_weights(weights_file)
 
     def guess(self, words):
@@ -54,19 +64,33 @@ class Model(object):
         #print(preds)
 
         #-----------optimization here-------------
+        print(len(text),len(preds))
+        classes_preds = []
+        for word,pred in zip(text,preds[0]):
+            if is_need_accent(word):
+                envolved_char = list(set([indexALPHABET[w] for w in ACCENTED_TO_BASE_CHAR_MAP.keys() if ACCENTED_TO_BASE_CHAR_MAP[w] == word]))
+                #envolved_char.append(indexALPHABET[word])
 
+                pred_extract = {i:p for i,p in enumerate(pred) if i in envolved_char}
 
+                max_index = sorted(pred_extract,key = lambda x : pred_extract[x])
+                print(max_index[-1])
+                classes_preds.append(max_index[-1])
+            else:
+                classes_preds.append(indexALPHABET[word])
         #-----------------------------------------
-
-        classes_x = np.argmax(preds, axis=-1)
+        #classes_preds = np.argmax(preds, axis=-1)
         #print(classes_x[0],len(classes_x))
-        return self.codec.decode(classes_x[0], calc_argmax=False).strip('\x00')
+        #print(classes_preds,len(classes_preds))
+        if self.invert:
+            classes_preds = classes_preds[::-1]
+        return self.codec.decode(classes_preds, calc_argmax=False).strip('\x00')
 
     def add_accent(self, text):
         # lowercase the input text as we train the model on lowercase text only
         # but we keep the map of uppercase characters to restore cases in output
         is_uppercase_map = [c.isupper() for c in text]
-        text = remove_accent(text.lower())
+        text = text.lower()
 
         # for each block of words or symbols in input text, either append the symbols or
         # add accents for words and append them.
@@ -98,4 +122,6 @@ class Model(object):
 
 if __name__ == '__main__':
     model = Model()
-    print(model.add_accent('co don qua'))
+    test = 'và hồn tôi từ do la khuc ca vang trong ngần'
+    testcase = model.add_accent('và hồn tôi từ do la khuc ca vang trong ngần')
+    testcase = testcase

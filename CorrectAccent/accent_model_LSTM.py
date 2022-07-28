@@ -101,13 +101,13 @@ class Model(object):
         # add accents for words and append them.
         outputs = []
         words_or_symbols_list = re.findall('\w[\w ]*|\W+', text)
-        print('input:', words_or_symbols_list)
+        #print('input:', words_or_symbols_list)
         for words_or_symbols in words_or_symbols_list:
             if is_words(words_or_symbols):
                 outputs.append(self._add_accent(words_or_symbols))
             else:
                 outputs.append(words_or_symbols)
-        print('output:', outputs)
+        #print('output:', outputs)
         output_text = ''.join(outputs)
 
         # restore uppercase characters

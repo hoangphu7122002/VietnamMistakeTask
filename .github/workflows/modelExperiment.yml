@@ -12,7 +12,6 @@ jobs:
         working-directory: /
     steps:
      -  run: echo Hello with CI/CD  
-     -  run: dir
      -
         name: Checkout
         uses: actions/checkout@v2
@@ -21,13 +20,14 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.10.5'
+     -  run: cd /home/runner/work/VietnamMistakeTask/VietnamMistakeTask/
      - 
         name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r /home/runner/work/VietnamMistakeTask/VietnamMistakeTask/requirements.txt
+          pip install -r requirements.txt
      - 
         name: Test with pytest
         run: |
-          cd /home/runner/work/VietnamMistakeTask/VietnamMistakeTask/CorrectAccent/
+          cd CorrectAccent/
           pytest          

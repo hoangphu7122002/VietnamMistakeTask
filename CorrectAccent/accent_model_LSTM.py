@@ -136,6 +136,9 @@ def returnRealOutput(test,model):
             realOutput.append(a)
     return " ".join(e for e in realOutput)
 
+
+#meme
+a = 4
 if __name__ == '__main__':
     model = Model()
     print(returnRealOutput('co chang trai viet len cay',model))

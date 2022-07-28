@@ -24,4 +24,5 @@ for sen in tqdm(test_data[:100]):
         num_correct += 1
 
 #hello test CI/CD
+#no no no
 assert num_correct/100 >= 0.27

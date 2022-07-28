@@ -6,6 +6,10 @@ import tensorflow as tf
 
 ALPHABET = list(sorted(set(ALPHABET)))
 indexALPHABET = {e: index for index,e in enumerate(ALPHABET)}
+data_path = 'CorrectTeencode/'
+fi = open(data_path + 'data/tudien_don.json', 'r', encoding='utf-8')
+data_single = json.load(fi)
+singleWord = data_single.keys()
 
 def is_need_accent(digit):
     if isinstance(digit,int):
@@ -47,7 +51,7 @@ class Model(object):
         self.maxlen = self.config.get('MAXLEN', 32)
         self.invert = self.config.get('INVERT', True)
         self.ngram = self.config.get('NGRAM', 5)
-        self.pad_words_input = self.config.get('PAD_WORDS_INPUT', True)
+        self.pad_words_input = True
         self.input_codec = CharacterCodec(ALPHABET, self.maxlen)
         self.codec = CharacterCodec(ALPHABET, self.maxlen)
         self.model = createModel(self.maxlen,tf)
@@ -64,7 +68,7 @@ class Model(object):
         #print(preds)
 
         #-----------optimization here-------------
-        print(len(text),len(preds))
+        #print(len(text),len(preds))
         classes_preds = []
         for word,pred in zip(text,preds[0]):
             if is_need_accent(word):
@@ -74,7 +78,7 @@ class Model(object):
                 pred_extract = {i:p for i,p in enumerate(pred) if i in envolved_char}
 
                 max_index = sorted(pred_extract,key = lambda x : pred_extract[x])
-                print(max_index[-1])
+                #print(max_index[-1])
                 classes_preds.append(max_index[-1])
             else:
                 classes_preds.append(indexALPHABET[word])
@@ -120,8 +124,17 @@ class Model(object):
         output = ' '.join(c.most_common(1)[0][0] for c in candidates if c)
         return output.strip('\x00 ')
 
+def returnRealOutput(test,model):
+    get = model.add_accent(test)
+    pairs = [(a, b) for a, b in zip(test.split(' '), get.split(' '))]
+    realOutput = []
+    for a, b in pairs:
+        if b in singleWord:
+            realOutput.append(b)
+        else:
+            realOutput.append(a)
+    return " ".join(e for e in realOutput)
+
 if __name__ == '__main__':
     model = Model()
-    test = 'và hồn tôi từ do la khuc ca vang trong ngần'
-    testcase = model.add_accent('và hồn tôi từ do la khuc ca vang trong ngần')
-    testcase = testcase
+    print(returnRealOutput('và hồn tôi từ đó là khúc ca vang trong ngan',model))

@@ -35,13 +35,12 @@ def fix_symbol(sentence):
     for word in t:
         for key in keySymbol:
             if key in word:
-                output += dict_symbol[word] + " "
+
+                output += dict_symbol[key] + " "
                 flagSymbol = 1
                 break
         if flagSymbol == 0:
             output += word + " "
-        else:
-            flagSymbol = 1
 
     return output
 

@@ -1,15 +1,16 @@
 name: modelExperimient
 
 on:
-  push:
-      branches: [main]
+ push:
+  paths:
+      - 'CorrectAccent/**'
 jobs:
   test:
     runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
-        working-directory: /
+        working-directory: CorrectAccent/
     steps:
      -  run: echo Hello with CI/CD  
      -
@@ -20,7 +21,6 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.10.5'
-     -  run: cd /home/runner/work/VietnamMistakeTask/VietnamMistakeTask/
      - 
         name: Install dependencies
         run: |

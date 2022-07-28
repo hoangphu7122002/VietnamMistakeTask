@@ -44,7 +44,7 @@ class CharacterCodec(object):
 
 
 class Model(object):
-    def __init__(self, config_file = 'CorrectAccent/model/config.json',weights_file = 'CorrectAccent/model/weights.h5'):
+    def __init__(self, config_file = 'CorrectAccent/model/config.json',weights_file = 'CorrectAccent/model/weights.h5',model_file = 'CorrectAccent/model/model.json'):
         with open(config_file) as f:
             self.config = json.load(f)
 
@@ -54,7 +54,8 @@ class Model(object):
         self.pad_words_input = True
         self.input_codec = CharacterCodec(ALPHABET, self.maxlen)
         self.codec = CharacterCodec(ALPHABET, self.maxlen)
-        self.model = createModel(self.maxlen,tf)
+        #self.model = createModel(self.maxlen,tf)
+        self.model = tf.keras.models.model_from_json(open(model_file, 'r').read())
         self.model.load_weights(weights_file)
 
     def guess(self, words):
@@ -137,4 +138,4 @@ def returnRealOutput(test,model):
 
 if __name__ == '__main__':
     model = Model()
-    print(returnRealOutput('và hồn tôi từ đó là khúc ca vang trong ngan',model))
+    print(returnRealOutput('co chang trai viet len cay',model))

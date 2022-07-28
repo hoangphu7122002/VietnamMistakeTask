@@ -1,16 +1,26 @@
-# This is a sample Python script.
+import uvicorn
+from fastapi import FastAPI
+from pydantic import BaseModel
+from CorrectTeencode.corrector import correct_sent
+from CorrectAccent.accent_model_LSTM import Model,returnRealOutput
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+app = FastAPI()
+model = Model()
 
+class Request(BaseModel):
+    text: str
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+@app.post("/correctTeencode")
+def teencode(data: Request):
+    data = data.dict()
+    corrected = correct_sent(data["text"])
+    return {"result": corrected}
 
+@app.post("/accent")
+def accent(data: Request):
+    data = data.dict()
+    corrected = returnRealOutput(data["text"],model)
+    return {"result": corrected}
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=5000)

@@ -1,13 +1,13 @@
 import json
 from collections import Counter
 import numpy as np
-from helper_function import *
+from CorrectAccent.helper_function import *
 import tensorflow as tf
 
 ALPHABET = list(sorted(set(ALPHABET)))
 indexALPHABET = {e: index for index,e in enumerate(ALPHABET)}
 #data_path = 'CorrectAccent/'
-fi = open('data/tudien_don.json', 'r', encoding='utf-8')
+fi = open('CorrectAccent/data/tudien_don.json', 'r', encoding='utf-8')
 data_single = json.load(fi)
 singleWord = data_single.keys()
 

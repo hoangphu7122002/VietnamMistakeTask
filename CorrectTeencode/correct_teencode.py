@@ -3,7 +3,7 @@ import re
 import itertools
 import unidecode
 import unicodedata
-from correct_close_character import correct_close_character_sent
+from CorrectTeencode.correct_close_character import correct_close_character_sent
 
 data_path = 'CorrectTeencode/'
 fi = open(data_path + 'telex/complex_telex_fault.json', encoding='utf-8')

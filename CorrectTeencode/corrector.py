@@ -1,8 +1,8 @@
-from correct_teencode import correct_teencode,correct_short_word_sent, correct_teencode_word
-from correct_close_character import correct_close_character_sent
-from correct_telex import TelexErrorCorrector
-from correct_vni import VniErrorCorrector
-from correct_emoji import fix_emoji
+from CorrectTeencode.correct_teencode import correct_teencode,correct_short_word_sent, correct_teencode_word
+from CorrectTeencode.correct_close_character import correct_close_character_sent
+from CorrectTeencode.correct_telex import TelexErrorCorrector
+from CorrectTeencode.correct_vni import VniErrorCorrector
+from CorrectTeencode.correct_emoji import fix_emoji
 import json
 import re
 data_path = 'CorrectTeencode/'

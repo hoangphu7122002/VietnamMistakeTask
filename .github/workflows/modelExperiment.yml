@@ -1,4 +1,4 @@
- name: modelExperimient
+name: modelExperimient
 
 on:
   push:

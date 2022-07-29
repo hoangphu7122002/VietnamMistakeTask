@@ -1,8 +1,9 @@
 import uvicorn
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel,conlist
 from CorrectTeencode.corrector import correct_sent
 from CorrectAccent.accent_model_LSTM import Model,returnRealOutput
+from typing import List
 
 app = FastAPI()
 model = Model()

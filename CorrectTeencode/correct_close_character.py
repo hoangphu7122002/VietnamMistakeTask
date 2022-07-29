@@ -1,5 +1,4 @@
 from CorrectTeencode.correct_telex import TelexErrorCorrector
-import unidecode
 import json
 import re
 

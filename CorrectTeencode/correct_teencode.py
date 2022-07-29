@@ -1,6 +1,5 @@
 import json
 import re
-import itertools
 import unidecode
 import unicodedata
 from CorrectTeencode.correct_close_character import correct_close_character_sent

@@ -4,7 +4,8 @@ from pydantic import BaseModel,conlist
 from CorrectTeencode.corrector import correct_sent
 from CorrectAccent.accent_model_LSTM import Model,returnRealOutput
 from typing import List
-import numpy as np
+from predictEmotion.predict import predictBatch
+
 
 app = FastAPI()
 model = Model()
@@ -33,6 +34,12 @@ def accent(batch: BatchRequest):
         corrected = returnRealOutput(text,model)
         pred.append(corrected)
     return {"Prediction": pred}
+
+@app.post("/emotion")
+def emotion(batch: BatchRequest):
+    batches = batch.batches[0]
+    batches = [returnRealOutput(correct_sent(text),model)  for text in batches]
+    return {"Prediction": predictBatch(batches)}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=5000)
